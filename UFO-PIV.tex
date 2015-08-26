@@ -1,0 +1,175 @@
+\documentclass[11pt,draft]{amsart}
+\usepackage{geometry}           % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}              % ... letterpaper or a4paper or a5paper or ... 
+%\geometry{landscape}           % Activate for for rotated page geometry
+\usepackage[parfill]{parskip}   % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Towards an Online Analysis for Defocusing Micro Particle Tracking Velocimetry}
+\author{C. Miao and A. Lewkowicz and M. Vogelgesang and T. Dritschler and S. Chilingaryan and A. Kopmann and P. Cavadini and H. Weinhold}
+\address{Karlsruhe Institute of Technology, Postfach 3640, D-76021 Karlsruhe, Germany}
+\date{2.7.2015}                     % Activate to display a given date or no date
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+At KIT a new micro-PIV setup is currently developed. 
+It is intended to analyze flow field in thin films. 
+
+Defocusing particle tracing is able to detect the position of traced particles in a certain volume around the focal plane. The setup exploits this technique and used unto five
+planes in parallel. 
+
+In order to evaluate the experiments and to enable feedback control online reconstruction is currently developed. Lastest advances in parallel computing might give rise accelleration factors up to the real-time domain. 
+
+The article will present hardware and software environment and present a detailed analysis of off-focus PIV algorithms. Latest benchmark results of the project are presented.
+
+\smallskip
+\noindent \textbf{Keywords.} Online Monitoring, GPU Computing, Defocusing PIV
+\end{abstract}
+
+
+
+\section{Introduction}
+
+Who proposed the defocusing method the first time? Sample pictures of the method. 
+Speidel et al. (2003), Wu et al. (2005), Park und Kihm (2006)
+
+
+Overview of the different communities and application that use the method
+
+
+Previous work of of other groups, available open source applications, commercial applications?
+
+Why does optimization of standard applications make sense?
+
+
+Measures to accelerate analysis of PIV code. Estimate individual optimization potential. 
+\begin{itemize}
+\item M1: Optimized algorithm 10-50
+\item M2: Optimized implementation for parallel execution 10-20
+\item M3: Usage of GPU as co-processors (instead or in addition to CPU) 5-10
+\item M4: Optimization for certain GPU architecture 2-4
+\item M5: Usage of GPU Cluster 2-4
+\item M6: New hardware generation 2-3
+\item M7: Management of spatial and temporal resolution (for online monitoring) 4-16
+\end{itemize}
+
+
+
+\section{Hardware and software environment}
+
+\subsection{Experimental setup}
+
+Short description of the setup. Picture of the observation volume. 
+
+Description of reference datasets (put these datasets also to UFO server to allow comparison of algorithms)
+
+
+\subsection{The UFO Parallel Computing Framework}
+
+Design principles.
+
+Advantages for the developer
+
+Advantages for the algorithm designer
+
+Interface for the user, options for integration
+
+
+\section{PIV Algorithm}
+
+Describe analysis chain. Block diagram. Profiling.
+Display variants of the algorithm as branches.
+
+
+\subsection{Image pre-processing}
+
+\subsection{Particle detection}
+
+\subsection{Particle properties}
+
+\subsection{Tracking}
+
+
+
+\section{Results}
+
+\subsection{Performance}
+
+Present different versions of the code.
+
+\begin{itemize}
+\item (1) 4DTracker: MatLab code, ordered filter approach, single core, no optimization, by Wu et. al
+\item (2.1) "FastTracker": ordered filter code, optimized for parallel execution on CPU, by T Habel and A. Lewkowicz
+\item (2.2) "FastTracker": ordered filter code, optimized for parallel execution on GPU, by T Habel and A. Lewkowicz
+\item (3.1) UFO-PIV: Hough transform, optimized for GPU, executed on CPU, by A. Lewkowicz and C. Miao and the UFO-team
+\item (3.2) UFO-PIV: Hough transform, optimized for GPU, executed on GPU (Cluster), by A. Lewkowicz and C. Miao and the UFO-team
+\end{itemize}
+
+Comparison of the different codes. Relate to the optimization measures above. 
+
+Measure M1: 2.1 and 3.1 (for comparison do also 2.2 and 3.2) are both optimized. The difference is the better suited algorithm in 3. 
+
+Measure M2: 1 and 2.1 have the same algorithm, but 2.1 used parallel optimization for CPUs. 
+Compare with the Ratzenbook 2013 code. They exploit M1 and M2. Run our code 3 on CPU only.
+Should we introduce code 3.0 on GPU for this purpose?
+
+Measure M3: Compare 2.1 and 2.2 (or 3.1 and 3.2), same implementation but execution on CPU and GPU. 
+
+Measure M4: Not used currently (my be report experience form PyHST?). (csa)
+
+Measure M5: Execute 3.2 at a GPU cluster. The performance of the execution is limited by the number of GPUs. For the 5 camera setup the demand for GPUs scales by additional factor of 5, that more than 4 GPUs per camera brach seem not feasible. 
+
+Measure M6: Execute 3.1 and 3.2 at different CPUs / GPUs and plot versus the release dates of the GPUs. Add roadmap data from the manufactures. 
+
+Check if some measures can be plotted in the same graph? 
+
+
+\subsection{Precision}
+
+Evaluation of detection efficiency, concerning false positive and false negatives. Compare with 
+Ratzenbook 2013.
+
+
+
+
+
+\subsection{Particle management}
+
+Measure M7: Analyse quality of particle detection with quality of the resulting trajectory.
+Analyst how many particles are needed in a volume and time slice in relation to the velocity to get a good quality of the flow field.
+
+
+
+\section{Conclusion}
+
+The UFO platform is ideal to create workflows with optimized algorithms. 
+
+UFO-PIV code is the fastest code and available online. It can be easily customized for other setups. 
+
+Public high-quality code is crucial of the development of cutting edge experiments in all communities. Only with a common effort maintainable and reliable code can be ensured in the future. 
+
+Online monitoring seems to the feasible, while not completely reached. The group will proceed to develop the first online PIV setup with 3D visualization in a volume of about 100um x 100 um x 100 um.
+
+Future plans, next steps to develop the aimed online monitoring.
+ 
+Scientific GPU computing is affordable and can replace tedious computations for many applications. Beside PIV there are other applications like tomography where GPUs have been successfully used.
+
+Link the the UFO-PIV code repository or website. Publish also the sample dataset used in the article. The UFO-PIV code and the dataset should be stored at GitHUB / zenodo.org with an DOI.
+
+
+
+\section{Acknowledgement}
+
+The group of Wu for the initial code 4DTracker.
+
+The UFO framework has been initiated due to UFO Grants and has been developed to universal framework for online monitoring systems for high data-rate since then.
+
+\end{document}  
+

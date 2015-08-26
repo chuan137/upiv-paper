@@ -1,0 +1,52 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}           % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}              % ... letterpaper or a4paper or a5paper or ... 
+%\geometry{landscape}           % Activate for for rotated page geometry
+\usepackage[parfill]{parskip}   % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{%
+    \noexpand\epstopdfcall{convert #1 \noexpand\OutputFile}%
+}
+
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage[modulo]{lineno}
+\linenumbers
+
+\title{Towards an Online Analysis for Defocusing Micro Particle Tracking Velocimetry}
+\author{C. Miao and A. Lewkowicz and M. Vogelgesang and T. Dritschler and S. Chilingaryan and A. Kopmann and P. Cavadini and H. Weinhold}
+\address{Karlsruhe Institute of Technology, Postfach 3640, D-76021 Karlsruhe, Germany}
+\date{2.7.2015}                     % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+At KIT a new micro-PIV setup is currently developed.  It is intended to analyze
+flow field in thin films. 
+
+Defocusing particle tracing is able to detect the position of traced particles
+in a certain volume around the focal plane. The setup exploits this technique
+and used unto five planes in parallel. 
+
+In order to evaluate the experiments and to enable feedback control online
+reconstruction is currently developed. Lastest advances in parallel computing
+might give rise accelleration factors up to the real-time domain. 
+
+The article will present hardware and software environment and present a
+detailed analysis of off-focus PIV algorithms. Latest benchmark results of the
+project are presented.
+
+\smallskip
+\noindent \textbf{Keywords.} Online Monitoring, GPU Computing, Defocusing PIV, 
+Hough Transform, Statistical
+\end{abstract}
+
+\include{1-introduction}
+\include{2-algorithm}
+
+
+\end{document}
