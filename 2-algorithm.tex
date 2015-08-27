@@ -1,10 +1,9 @@
 \section{Ring detection}
 
 we are facing deficulties
-\begin{enumerate}
-\item fuzzy 
-\item uneven brightness
-\end{enumerate}
+(1) fuzzy rings.
+(2) non-uniform contrast and  brightness
+To evaluate the We need to quantify the signal
 
 Hough transform.
 common strategy is to apply an edge detection before HT.
@@ -14,5 +13,17 @@ We imporve the contrast to gain higher SNR instead of edge detection.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{figs/img0-auto.png}
+\includegraphics[width=0.35\textwidth]{figs/img0-inverse.png}
+\includegraphics[width=0.35\textwidth]{figs/img0-crop.png}
 \end{figure}
+
+
+contrast, histogram, singmoid, background fitting
+
+\begin{figure}
+\centering
+\includegraphics[width=0.25\textwidth]{./figs/img0-crop-contrast.png}
+\includegraphics[width=0.35\textwidth]{figs/img0-crop.png}
+\end{figure}
+
+
